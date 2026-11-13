@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signal UI — Working starter</title>
+  <link rel="stylesheet" href="./signal-ui.css">
+  <style>body{margin:0;padding:48px 24px;background:#f5f4f0;color:#24262d;font:15px/1.7 system-ui,sans-serif}main{max-width:650px;margin:auto}h1{font-size:38px;letter-spacing:-1.5px;line-height:1.15;font-weight:550}p{color:#69717c}section{padding:25px 0;border-top:1px solid #dddfe3}h2{font-size:18px;font-weight:550}button,a{outline-offset:4px}button:focus-visible,a:focus-visible{outline:2px solid #3667f8}.starter-button{border:1px solid #d1d5dd;border-radius:9px;padding:12px 17px;min-height:44px;background:white;color:#24262d;font:inherit;cursor:pointer}a{color:#365ee8}#starter-tabs [role=tabpanel]{min-height:100px}.notes{font-size:12px}code{font-size:13px;background:#e9ecf2;padding:2px 5px;border-radius:4px}</style>
+</head>
+<body><main><a href="./">← Signal UI demo</a><h1>Your next idea starts here.</h1><p>This page runs all four components with plain HTML, CSS, and JavaScript. Open its source to adapt it.</p>
+<section><h2>01 / Command menu</h2><button id="starter-search" class="starter-button">Find an action · Ctrl / ⌘ K</button></section>
+<section><h2>02 / Tabs</h2><div id="starter-tabs" class="sg-tabs"><div role="tablist" aria-label="Starter views"><button type="button" role="tab" id="starter-tab-one" aria-controls="starter-panel-one" aria-selected="true">Overview</button><button type="button" role="tab" id="starter-tab-two" aria-controls="starter-panel-two" aria-selected="false" tabindex="-1">Details</button></div><div role="tabpanel" id="starter-panel-one" aria-labelledby="starter-tab-one" tabindex="0"><p>A small starting point. Use the arrow keys to focus a tab, then Enter or Space to select it.</p></div><div role="tabpanel" id="starter-panel-two" aria-labelledby="starter-tab-two" tabindex="0" hidden><p>Each instance has its own unique IDs. Components return a <code>destroy()</code> method for cleanup.</p></div></div></section>
+<section><h2>03 / Dialog</h2><button id="starter-dialog" class="starter-button">Review changes</button></section>
+<section><h2>04 / Toasts</h2><button id="starter-save" class="starter-button">Show a message</button></section>
+<p class="notes">Serve this folder over HTTP. There is no npm package to install. The JavaScript and stylesheet are licensed under MIT. <a href="./README.md">Read the API documentation ↗</a></p></main>
+<script type="module">
+  import { createCommandMenu, createTabs, createDialog, createToasts } from './signal-ui.js';
+  const messages = createToasts();
+  const tabs = createTabs(document.querySelector('#starter-tabs'));
+  const review = createDialog({
+    trigger: document.querySelector('#starter-dialog'), title: 'Keep these changes?',
+    description: 'This is a local demo. Nothing will be published.', confirmLabel: 'Keep changes',
+    onConfirm: () => messages.show({ title: 'Changes confirmed', variant: 'success' })
+  });
+  const menu = createCommandMenu({
+    trigger: document.querySelector('#starter-search'),
+    commands: [
+      { id:'overview',label:'Open overview',onSelect:()=>{ tabs.select('starter-tab-one');document.querySelector('#starter-tabs').scrollIntoView(); } },
+      { id:'details',label:'Open details',onSelect:()=>{ tabs.select('starter-tab-two');document.querySelector('#starter-tabs').scrollIntoView(); } },
+      { id:'review',label:'Review changes',onSelect:()=>review.open() },
+      { id:'hello',label:'Say hello',onSelect:()=>messages.show({title:'Hello from Signal UI',description:'Your components are ready.'}) }
+    ]
+  });
+  document.querySelector('#starter-save').addEventListener('click',()=>messages.show({title:'That worked.',description:'A small signal, right when it matters.',variant:'success'}));
+  window.addEventListener('pagehide',event=>{if(!event.persisted){menu.destroy();tabs.destroy();review.destroy();messages.destroy();}});
+</script>
+</body></html>
