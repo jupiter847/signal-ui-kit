@@ -2,7 +2,7 @@
 
 Small, reusable interface components for plain HTML, CSS, and JavaScript.
 
-I made Signal UI to explore the details that help an interface feel clear: finding an action, moving between views, confirming a choice, and understanding what happened next. The kit brings those interactions together with shared styling and copyable examples.
+Signal UI explores the details that help an interface feel clear: finding an action, moving between views, confirming a choice, and understanding what happened next. The kit brings those interactions together with shared styling and copyable examples.
 
 **[Try the components](https://jupiter847.github.io/signal-ui-kit/)** · **[Download the kit](https://jupiter847.github.io/signal-ui-kit/downloads/signal-ui-kit.zip)**
 

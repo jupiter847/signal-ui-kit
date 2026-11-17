@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "My small collection of reusable JavaScript interface components, with keyboard interactions, theme controls and working examples.",
+  "description": "Reusable JavaScript interface components with keyboard interactions, theme controls and working examples.",
   "license": "MIT",
   "author": "Janina",
   "scripts": { "dev": "node scripts/serve.mjs", "test": "node --test tests/*.test.mjs" },
